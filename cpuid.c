@@ -27,6 +27,7 @@ int main(int argc, char const *argv[])
         //not implemented
     }
     printf("CPU \"Model\": %i\n",cpumodel);
-    printf("CPU revision: %i\n",revision); 
+    printf("CPU revision: %i\n",revision);
+     
     return 0;
 }
