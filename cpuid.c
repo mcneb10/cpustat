@@ -2,6 +2,7 @@
 #include "stdio.h"
 #include "string.h"
 #include "stdlib.h"
+#include "math.h"
 
 #define bool(i) \
     (i ? "true" : "false")
@@ -142,13 +143,16 @@ int main(int argc, char const *argv[])
     printf("Supports AVX-512 BFLOAT16: %s\n",getbool(a,5));
     __cpuid(0x80000000,a,b,c,d);
     int highestextendedcallingparameter = a;
-    printf("Maximum Basic Parameter: %i\nMaximum Extended Parameter: %i\n",highestbasiccallingparameter,highestextendedcallingparameter);
+    printf("Maximum Basic Parameter: %i\nMaximum Extended Parameter: %u\n",highestbasiccallingparameter,highestextendedcallingparameter);
     __cpuid(0x80000002,a,b,c,d);
     printf("Processor Brand String: %s%s%s%s",inttochars(a),inttochars(b),inttochars(c),inttochars(d));
     __cpuid(0x80000003,a,b,c,d);
     printf("%s%s%s%s",inttochars(a),inttochars(b),inttochars(c),inttochars(d));
     __cpuid(0x80000004,a,b,c,d);
     printf("%s%s%s%s\n",inttochars(a),inttochars(b),inttochars(c),inttochars(d));
+    __cpuid(0x80000008,a,b,c,d);
+    int corecount = (c&0b11111111)+1;
+    printf("Amount of physical cores: %i\n",corecount);
     //IT'S HAMMER TIME!
     __cpuid(0x8FFFFFFF,a,b,c,d);
     if(a) {
