@@ -1,6 +1,6 @@
-# makefile for mac cpuid
+# makefile for cpuidtest
 
-all: cpuidmac
+all: cpuid
 .PHONY: all
 %: %.c
 	gcc -o $@ $^
