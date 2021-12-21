@@ -4,3 +4,4 @@ cpuid
 *.swo
 tmp
 cmd
+.vscode
