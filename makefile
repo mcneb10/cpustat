@@ -1,6 +1,6 @@
-# makefile for cpuidtest
+# makefile for cpustat
 
-all: cpuid
+all: cpustat
 .PHONY: all
 %: %.c
 	cc -w -o $@ $^
