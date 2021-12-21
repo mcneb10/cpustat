@@ -3,4 +3,4 @@
 all: cpuid
 .PHONY: all
 %: %.c
-	gcc -o $@ $^
+	cc -w -o $@ $^

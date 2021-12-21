@@ -2,3 +2,5 @@
 cpuid
 *.swp
 *.swo
+tmp
+cmd
