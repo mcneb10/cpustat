@@ -20,7 +20,7 @@ char* inttochars(int i) {
 char* getbool(int i, int n) {
     return bool((i>>n)&1);
 }
-char uselongname = 0;
+char uselongname = 1;
 //0: flagname
 //1: long flagname
 //2: register
@@ -336,7 +336,7 @@ void getflag(char* name) {
                 reg=a;
             printf("%s: %s\n",flagsleaf1[i][1],getbool(reg,atoi(flagsleaf1[i][3]))); 
         }
-        if(name[0]!='\0') goto end;
+        if(strcmp(name,"")) goto end;
     }
     end:
     return;
@@ -350,10 +350,28 @@ void cpuvendorstring() {
     char* cvsstart = inttochars(b);
     printf("CPU vendor string: %s%s%s\n",inttochars(b),inttochars(d),inttochars(c));
 }
+void help() {
+	printf("cpustat [options]\n\n");
+	printf("Command line options:\n");
+	printf("-a: dump all information to console. terminates program after all information is outputed.\n");
+	printf("-b: output CPU brand string (ex. Intel(R) Core(TM) i5-4200M CPU @ 2.50GHz)\n");
+	printf("-v: output CPU vendor string (ex. GenuineIntel)\n");
+	printf("-e: output AMD K7 and K8 easteregg (if it is present) \n");
+	printf("-f[flag]: output selected flag (ex. -ffpu outputs if CPU has FPU)\n");
+	printf("-? or -h: output this help\n");
+	printf("-r[leaf(unsigned int),subleaf(unsigned int)]: get leaf and subleaf and output registers (ex. -r7,0)\n");
+	printf("-s: dont output flag label, only output if flag is set or not\n\n");
+	printf("-l: output flag label and if the flag is set or not (default) \n");
+	printf("Options that dont require a value after them can be grouped together\n\n");
+	printf("(ex. cpustat -bv)\n");
+}
+void getleaf(char* optarg) {
+	
+}
 int main(int argc, char const *argv[])
 {
     int option = 0;
-    while((option=getopt(argc,argv,"abvef:"))!=-1) {
+    while((option=getopt(argc,argv,"abve?hslr:f:"))!=-1) {
         switch(option) {
             case 'a':
                 getall();
@@ -371,7 +389,19 @@ int main(int argc, char const *argv[])
                 getflag(optarg);
                 //optarg;
                 break;
-            //case
+	    case '?':
+	    case 'h':
+		help();
+		goto exitloop;
+		break;
+	    case 'r':
+		break;
+	    case 's':
+		uselongname=0;
+		break;	
+	    case 'l':
+		uselongname=1;
+		break;
             default:
                 printf("Invalid argument: %c\n",option);
                 goto exitloop;
